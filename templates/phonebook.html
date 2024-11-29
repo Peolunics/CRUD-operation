@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+
+<style>
+    .mainContainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        gap: 2rem;
+        margin: 20px;
+        color: aliceblue;
+    }
+
+    .insertClass{
+        flex: 1;
+        max-width: 300px;
+        padding: 20px;
+        background-color: #000000a6;
+        border-radius: 5px;
+        text-align: start;
+    }
+
+    .insertClass input{
+        margin-left: 10px;
+        margin-top: 20px;
+    }
+
+    .inputClass{
+        display: flex;
+        align-items: end;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        background: rgb(0, 0, 0);
+        border-radius: 2px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    table td{
+        padding-left: 10px;
+    }
+
+</style>
+
+<body>
+    <h1>PHONEBOOK</h1>
+
+    <div class="mainContainer">
+        <div class="insertClass">
+            <form action="ADD_URL" method="post">
+                {% csrf_token %}
+                <label for="">Name</label>
+                <input type="text" name="inputName" class="inputClass"><br>
+                <label for="">Phonenumber</label>
+                <input type="number" name="inputNumber" class="inputClass"><br>
+                <input type="submit" value="Insert" name="button1">
+                {{key_Add}}
+            </form>
+        </div>
+
+        <div class="insertClass">
+            <form action="DISPLAY_URL">
+                <table border="1">
+                    <input type="submit" value="Display" name="button2">
+                    <tr>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Phone</td>
+                    </tr>
+                    {% for i in phn %}
+                    <tr>
+                        <td>{{ i.id }}</td>
+                        <td>{{ i.name }}</td>
+                        <td>{{ i.number }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </form>
+        </div>
+
+        <div class="insertClass">
+            <form action="DELETE_URL" method="post" >
+                {% csrf_token %}
+                <p>Enter Name or ID to delete</p>
+                <input type="text" name="deleteName"><br>
+                <input type="submit" value="Delete" name="button3">
+                {{key_Delete}}
+            </form>
+        </div>
+
+        <div class="insertClass">
+            <form action="UPDATE_URL" method="post">
+                {% csrf_token %}
+                <label for="">Old Name</label>
+                <input type="text" name="inputOldName" class="inputClass"><br>
+                <label for="">New name</label>
+                <input type="text" name="inputNewName" class="inputClass"><br>
+                <input type="submit" value="Update" name="button4">
+                {{key_Update}}
+            </form>
+        </div>
+
+    </div>
+
+
+
+</body>
+</html>
